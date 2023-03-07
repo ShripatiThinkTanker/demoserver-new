@@ -7,25 +7,46 @@
     <title>Listing page</title>
 </head>
 <body>
-
     <table border = "2px">
         <tr> 
             <th> Name of the File </th>
+            <th> Is printed </th>
             <th> Actions </th>
          </tr>
 
     <% for(var i =0; i < message.length; i++) {%>
-        <tr>
-            <td> <%= message[i].name %> </td>   
-            <td> <button name = "print" value = "<%= message[i] %>" onclick="sendDataToPython(this.value)">Print</td>
+        <tr id = "rowID<%= i %>">
+            <td class = "row-data" style="display: none">new ObjectId("<%= message[i]._id %>")</td>  
+            <td class = "row-data" style="display: none"><%= message[i].pdf_base64 %></td>
+            <td class = "row-data"><%= message[i].name %></td>  
+            <td class = "row-data" ><%= message[i].isPrinted %></td>
+            <td> <button name = "print" value = "<%= i %>" onclick="sendDataToPython(this.value)" >Print</td>
         </tr>
-    <% } %>
-    </table>    
+    <%} %>
+    </table>  
 </body>
 </html>
 
 <script> 
-        function sendDataToPython(message){
-            console.log(message)
+        const socket = new WebSocket('ws://localhost:5000');
+
+        socket.addEventListener('open', function(event){
+            console.log('Connected to the WS server!')
+        });
+
+        socket.addEventListener('close', function(event){
+            console.log('disconnected to the WS server!')
+        });
+
+        socket.addEventListener('message', function(event){
+            console.log('Msg from server: ', event.data)
+        });
+
+        function sendDataToPython(i){
+            var rowId = parseInt(i)
+            var data = document.getElementById("rowID"+rowId).querySelectorAll(".row-data");
+            var obj = {"_id": data[0].innerHTML, "pdf_base64": data[1].innerHTML, "name": data[2].innerHTML, "isPrinted": data[3].innerHTML}
+            console.log(obj)
+            socket.send(JSON.stringify(obj))
         }
 </script>

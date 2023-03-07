@@ -29,7 +29,7 @@ export const demoGetByID =  async (req, res) => {
       return res.render('home',{message:"success"})
     } catch (error) {
         return res.status(500).json({
-            message:"Internal  server Error"
+            message:"Internal  server Error" + error
           })
     }
   }
