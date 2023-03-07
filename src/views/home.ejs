@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.3.js"
+        integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estamping Web View</title>
+</head>
+
+<body>
+    Upload PDF<input type="file" id="pdfUpload" accept=".pdf" />
+    <button type="button" name="submit" onclick="submitData()"> Submit </button>
+</body>
+
+<script>
+    const submitData = () => {
+        var selectedFile = document.getElementById("pdfUpload").files;
+        //Check File is not Empty
+        if (selectedFile.length > 0) {
+            // Select the very first file from list
+            var fileToLoad = selectedFile[0];
+            console.log(fileToLoad)
+            // FileReader function for read the file.
+            var fileReader = new FileReader();
+            var base64;
+            // Onload of file read the file content
+            fileReader.onload = function (fileLoadedEvent) {
+                base64 = fileLoadedEvent.target.result;
+                // Print data in console
+                console.log(base64);
+
+                $.ajax({
+                    url: '/',
+                    method: "POST",
+                    data: {name : fileToLoad.name,data : base64},
+                    success: () => {
+                        console.log("successfully save");
+                    },
+                    error: (err) => {
+
+                        console.log(err);
+                    }
+                })
+
+            };
+            fileReader.readAsDataURL(fileToLoad);
+            // Convert data to base64
+
+
+
+        }
+    }
+</script>
+
+</html>

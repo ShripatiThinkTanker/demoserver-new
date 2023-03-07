@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listing page</title>
+</head>
+<body>
+
+    <table border = "2px">
+        <tr> 
+            <th> Name of the File </th>
+            <th> Actions </th>
+         </tr>
+
+    <% for(var i =0; i < message.length; i++) {%>
+        <tr>
+            <td> <%= message[i].name %> </td>   
+            <td> <button name = "print" value = "<%= message[i] %>" onclick="sendDataToPython(this.value)">Print</td>
+        </tr>
+    <% } %>
+    </table>    
+</body>
+</html>
+
+<script> 
+        function sendDataToPython(message){
+            console.log(message)
+        }
+</script>
