@@ -1,6 +1,5 @@
 
-
-import mongoose from 'mongoose'
+const mongoose =  require('mongoose')
 
 
 
@@ -13,5 +12,4 @@ const db = () => {
       });
 }
 
-export default db
-
+module.exports = db

@@ -1,4 +1,4 @@
-import demoModel from "../model/demoDB.js";
+const demoModel = require("../model/demoDB.js");
 
 const dataFunctions = {
     "uploadData" : (payload) => {
@@ -16,4 +16,4 @@ const dataFunctions = {
     }
 }
 
-export default dataFunctions;
+module.exports = dataFunctions;

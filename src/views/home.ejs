@@ -35,7 +35,7 @@
                 console.log(base64);
 
                 $.ajax({
-                    url: '/',
+                    url: '/insert',
                     method: "POST",
                     data: {name : fileToLoad.name,data : base64},
                     success: () => {

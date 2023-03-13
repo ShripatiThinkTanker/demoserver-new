@@ -14,6 +14,11 @@
             <th> Actions </th>
          </tr>
 
+    <select name = "listOfPrinters" id = "listPrinters">
+        <% for(var i = 0; i < listOfPrinters.length; i++) {%>
+            <option value = "<%= listOfPrinters[i]%>"> <%= listOfPrinters[i]%> </option>
+        <% } %>
+    </select>
     <% for(var i =0; i < message.length; i++) {%>
         <tr id = "rowID<%= i %>">
             <td class = "row-data" style="display: none">new ObjectId("<%= message[i]._id %>")</td>  
@@ -45,7 +50,8 @@
         function sendDataToPython(i){
             var rowId = parseInt(i)
             var data = document.getElementById("rowID"+rowId).querySelectorAll(".row-data");
-            var obj = {"_id": data[0].innerHTML, "pdf_base64": data[1].innerHTML, "name": data[2].innerHTML, "isPrinted": data[3].innerHTML}
+            var printerName = document.getElementById("listPrinters").value
+            var obj = {"_id": data[0].innerHTML, "pdf_base64": data[1].innerHTML, "name": data[2].innerHTML, "isPrinted": data[3].innerHTML, "printerName" : printerName.replace("\n\n","")}
             console.log(obj)
             socket.send(JSON.stringify(obj))
         }

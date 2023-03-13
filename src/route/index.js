@@ -1,6 +1,5 @@
-import indexRouter from "./indexRouter.js"
-export const route = (app) =>{
+const indexRouter = require("./indexRouter.js")
+const route = (app) =>{
     app.use("/", indexRouter)
 }
-
-export default route
+module.exports = route;

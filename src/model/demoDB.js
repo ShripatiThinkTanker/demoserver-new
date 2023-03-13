@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 
 const demoSchema = new mongoose.Schema({
     "pdf_base64" : String,
@@ -8,4 +8,4 @@ const demoSchema = new mongoose.Schema({
 
 const demoModel = mongoose.model("demo", demoSchema);
 
-export default demoModel;
+module.exports = demoModel;
